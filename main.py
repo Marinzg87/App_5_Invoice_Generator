@@ -23,19 +23,20 @@ for filepath in filepaths:
     # Create a data frame
     df = pd.read_excel(filepath, sheet_name="Sheet 1")
     # Create the column list
-    columns = list(df.columns)
-    headers = []
-    for columns in columns:
-        headers.append(columns.replace("_", " ").title())
-    # Add the columns to the PDF file
+    columns = df.columns # we can iterate with this index object
+    columns = [item.replace("_", " ").title() for item in columns]
+    # headers = []
+    # for columns in columns:
+    #     headers.append(columns.replace("_", " ").title())
+    # Add the column headers to the table
     pdf.set_font (family="Times", style="B", size=10)
     pdf.set_text_color (80, 80, 80)
-    pdf.cell (w=30, h=8, txt=headers[0], border=1)
-    pdf.cell (w=60, h=8, txt=headers[1], border=1)
-    pdf.cell (w=40, h=8, txt=headers[2], border=1)
-    pdf.cell (w=30, h=8, txt=headers[3], border=1)
-    pdf.cell (w=30, h=8, txt=headers[4], border=1, ln=1)
-    # Go thorough the data frame
+    pdf.cell (w=30, h=8, txt=columns[0], border=1)
+    pdf.cell (w=60, h=8, txt=columns[1], border=1)
+    pdf.cell (w=40, h=8, txt=columns[2], border=1)
+    pdf.cell (w=30, h=8, txt=columns[3], border=1)
+    pdf.cell (w=30, h=8, txt=columns[4], border=1, ln=1)
+    # Go thorough the data frame and add the rows to the table
     for index, row in df.iterrows():
         pdf.set_font(family="Times", size=10)
         pdf.set_text_color(80, 80, 80)
